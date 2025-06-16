@@ -9,10 +9,29 @@ folders_widget::folders_widget(const QString &title, const QString &count, QWidg
     noteName.chop(5);           //приберає з назви ".json"
     titleLabel = new QLabel(noteName, this);
     countLabel = new QLabel("Кількість нотаток: " + count, this);
+    titleLabel->setStyleSheet("color: white; padding: 2px; font-size: 10pt;");
+    countLabel->setStyleSheet("color: white; padding: 2px; font-size: 10pt;");
 
     //buttons
     openButton = new QPushButton("Відкрити", this);
-    openButton->setStyleSheet("background-color: red; color: white; font-weight: bold;");
+    openButton->setMinimumHeight(30);
+    openButton->setStyleSheet(
+        "QPushButton {"
+        "   font-size: 12pt;"
+        "   border-style: outset;"
+        "   border-width: 2px;"
+        "   border-radius: 10px;"
+        "   background-color: rgb(112, 91, 218);"
+        "   color: white;"
+        "   border: none;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: rgb(92, 71, 198);"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: rgb(72, 51, 178);"
+        "}"
+        );
 
     //layout для кнопок
     QHBoxLayout *buttonLayout = new QHBoxLayout;
@@ -34,4 +53,6 @@ folders_widget::folders_widget(const QString &title, const QString &count, QWidg
 
     //сигнали
     connect(openButton, &QPushButton::clicked, this, &folders_widget::openFolder);
+
+    setFixedHeight(60);
 }

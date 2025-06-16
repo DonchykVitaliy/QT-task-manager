@@ -28,6 +28,29 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Ініціалізуємо QScrollArea для відображення плиток
     scrollArea = new QScrollArea(this);
+    scrollArea->setStyleSheet(R"(
+    QScrollBar:vertical {
+        background: #e0e0e0;
+        width: 12px;
+        margin: 2px 0 2px 0;
+        border-radius: 6px;
+    }
+    QScrollBar::handle:vertical {
+        background: #9c9c9c;
+        border-radius: 6px;
+        min-height: 20px;
+    }
+    QScrollBar::handle:vertical:hover {
+        background: #666;
+    }
+    QScrollBar::add-line:vertical,
+    QScrollBar::sub-line:vertical {
+        height: 0;
+    }
+    QScrollBar::add-page:vertical,
+    QScrollBar::sub-page:vertical {
+        background: none;
+    })");
     container = new QWidget;
     layout = new QVBoxLayout(container);
     scrollArea->setWidget(container);
@@ -136,6 +159,35 @@ void MainWindow::updateNoteList()
 
                     updateNoteList();
                 });
+
+                // вимкнути нагадування
+                connect(taskWidget, &task_widget::taskNotf, this, [this, filePath,fileName]() {
+                    QFile file(filePath);
+                    if (!file.open(QIODevice::ReadOnly)) {
+                        qWarning() << "Не вдалося відкрити файл для читання:" << filePath;
+                        return;
+                    }
+
+                    QByteArray fileData = file.readAll();
+                    file.close();
+
+                    QJsonDocument doc = QJsonDocument::fromJson(fileData);
+                    QJsonObject settingsObj = doc.object();
+
+                    //зміна параметру
+                    if (settingsObj.contains("Notf")) {
+                        settingsObj["Notf"] = false;
+                    }
+
+                    //запис у файл
+                    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+                        QJsonDocument newDoc(settingsObj);
+                        file.write(newDoc.toJson(QJsonDocument::Indented)); // красиво
+                        file.close();
+                    }
+
+                    updateNoteList();
+                });
             }
         }
     }
@@ -189,6 +241,7 @@ void MainWindow::on_basketBut_clicked()
 }
 
 
+//кнопка статистики
 void MainWindow::on_statBut_clicked()
 {
     stat_window stat;

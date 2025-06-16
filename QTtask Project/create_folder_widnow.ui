@@ -13,11 +13,45 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(17, 15, 27);</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="2" column="1">
     <widget class="QPushButton" name="closeBtn">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="focusPolicy">
       <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
      </property>
      <property name="text">
       <string>Закрити</string>
@@ -26,6 +60,37 @@
    </item>
    <item row="2" column="0">
     <widget class="QPushButton" name="createBtn">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
+     </property>
      <property name="text">
       <string>Створити</string>
      </property>
@@ -40,6 +105,14 @@
    </item>
    <item row="1" column="0" colspan="2">
     <widget class="QGroupBox" name="groupBox">
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);</string>
+     </property>
      <property name="title">
       <string>Список нотаток</string>
      </property>

@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>TaskManager</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(17, 15, 27);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
@@ -39,6 +42,37 @@
         </property>
         <item>
          <widget class="QPushButton" name="foldersBut">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
+          </property>
           <property name="text">
            <string>Папки</string>
           </property>
@@ -46,6 +80,37 @@
         </item>
         <item>
          <widget class="QPushButton" name="calendarBut">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
+          </property>
           <property name="text">
            <string>Календар</string>
           </property>
@@ -53,6 +118,37 @@
         </item>
         <item>
          <widget class="QPushButton" name="statBut">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
+          </property>
           <property name="text">
            <string>Статистика</string>
           </property>
@@ -60,6 +156,37 @@
         </item>
         <item>
          <widget class="QPushButton" name="basketBut">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
+          </property>
           <property name="text">
            <string>Кошик</string>
           </property>
@@ -80,6 +207,37 @@
         </item>
         <item>
          <widget class="QPushButton" name="setingsBut">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QPushButton
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
+          </property>
           <property name="text">
            <string>Налаштування</string>
           </property>
@@ -88,7 +246,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,45">
+       <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,30">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -102,21 +260,85 @@
           </property>
           <item>
            <widget class="QTextEdit" name="searchText">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>25</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
               <height>27</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QTextEdit
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	
+	background-color: rgb(235, 235, 235);
+	border-color: rgb(196, 196, 196);
+	color: rgb(119, 120, 115);
+}</string>
+            </property>
+            <property name="verticalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="clearBut">
+            <property name="minimumSize">
+             <size>
+              <width>30</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="maximumSize">
              <size>
-              <width>28</width>
-              <height>28</height>
+              <width>30</width>
+              <height>30</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>11</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
             </property>
             <property name="text">
              <string>X</string>
@@ -144,7 +366,7 @@
             <property name="minimumSize">
              <size>
               <width>100</width>
-              <height>28</height>
+              <height>35</height>
              </size>
             </property>
             <property name="maximumSize">
@@ -152,6 +374,31 @@
               <width>300</width>
               <height>28</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>12</pointsize>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
             </property>
             <property name="text">
              <string>Створити</string>

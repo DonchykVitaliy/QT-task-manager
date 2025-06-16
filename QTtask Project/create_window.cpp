@@ -66,6 +66,7 @@ void create_window::on_createBtn_clicked()
             QJsonDocument doc(noteObject);
             file.write(doc.toJson());
             file.close();
+            allow = true;
             this->close();                      // якщо файл успішно збережений, то закриття вікна
         } else {
             QMessageBox::critical(this, "Помилка", "Не вдалося створити файл!");
@@ -81,6 +82,8 @@ void create_window::on_createBtn_clicked()
 //попередження перед закриттям
 void create_window::closeEvent(QCloseEvent *event)
 {
+    if (!allow)
+    {
     QMessageBox msg(this);
     msg.setWindowTitle("Вихід");
     msg.setText("Ви впевнені, що хочете закрити вікно створення нотатки?");
@@ -95,5 +98,6 @@ void create_window::closeEvent(QCloseEvent *event)
     } else {
         event->ignore(); //скасувати
     }
+}
 }
 

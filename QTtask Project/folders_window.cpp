@@ -14,6 +14,29 @@ folders_window::folders_window(QWidget *parent) :
 
     // Ініціалізуємо QScrollArea для відображення плиток
     scrollArea = new QScrollArea(this);
+    scrollArea->setStyleSheet(R"(
+    QScrollBar:vertical {
+        background: #e0e0e0;
+        width: 12px;
+        margin: 2px 0 2px 0;
+        border-radius: 6px;
+    }
+    QScrollBar::handle:vertical {
+        background: #9c9c9c;
+        border-radius: 6px;
+        min-height: 20px;
+    }
+    QScrollBar::handle:vertical:hover {
+        background: #666;
+    }
+    QScrollBar::add-line:vertical,
+    QScrollBar::sub-line:vertical {
+        height: 0;
+    }
+    QScrollBar::add-page:vertical,
+    QScrollBar::sub-page:vertical {
+        background: none;
+    })");
     container = new QWidget;
     layout = new QVBoxLayout(container);
     scrollArea->setWidget(container);

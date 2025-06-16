@@ -13,11 +13,41 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(17, 15, 27);</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_5" stretch="1,1">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QPushButton" name="deleteBtn">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+	font-size: 12pt;
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
+       </property>
        <property name="text">
         <string>Видалити папку</string>
        </property>
@@ -25,6 +55,33 @@
      </item>
      <item>
       <widget class="QPushButton" name="renameBtn">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+	font-size: 12pt;
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
+       </property>
        <property name="text">
         <string>Перейменувати папку</string>
        </property>

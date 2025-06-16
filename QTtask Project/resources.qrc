@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/fonts">
+        <file>fonts/SFProText-Bold.ttf</file>
+        <file>fonts/SFProText-BoldItalic.ttf</file>
+        <file>fonts/SFProText-Heavy.ttf</file>
+        <file>fonts/SFProText-HeavyItalic.ttf</file>
+        <file>fonts/SFProText-Light.ttf</file>
+        <file>fonts/SFProText-LightItalic.ttf</file>
+        <file>fonts/SFProText-Medium.ttf</file>
+        <file>fonts/SFProText-MediumItalic.ttf</file>
+        <file>fonts/SFProText-Regular.ttf</file>
+        <file>fonts/SFProText-RegularItalic.ttf</file>
+        <file>fonts/SFProText-Semibold.ttf</file>
+        <file>fonts/SFProText-SemiboldItalic.ttf</file>
+    </qresource>
+    <qresource prefix="/icons"/>
+    <qresource prefix="/images"/>
+    <qresource prefix="/icon">
+        <file>icons/edit.png</file>
+        <file>icons/down_arrow.png</file>
+        <file>icons/up_arrow.png</file>
+    </qresource>
+</RCC>

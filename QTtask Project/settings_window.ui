@@ -13,14 +13,44 @@
   <property name="windowTitle">
    <string>Налаштування</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(17, 15, 27);</string>
+  </property>
   <widget class="QPushButton" name="closeBut">
    <property name="geometry">
     <rect>
      <x>200</x>
      <y>470</y>
      <width>111</width>
-     <height>24</height>
+     <height>30</height>
     </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>90</width>
+     <height>30</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton
+{
+	font-size: 12pt;
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
    </property>
    <property name="text">
     <string>Закрити</string>

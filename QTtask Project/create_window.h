@@ -25,6 +25,8 @@ protected:
 
 private:
     Ui::create_window *ui;
+
+    bool allow = false;
 };
 
 #endif // CREATE_WINDOW_H

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 
+#include <QFontDatabase>
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
@@ -12,6 +13,16 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+
+    // Завантаження шрифту
+    int id = QFontDatabase::addApplicationFont(":/fonts/SFProText-Regular.ttf");
+    if (id != -1) {
+        QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+        QFont font(family);
+        font.setPointSize(14);  // або інший розмір
+        a.setFont(font);
+    }
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Статистика</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(17, 15, 27);</string>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
    <property name="spacing">
     <number>0</number>
@@ -23,6 +26,14 @@
       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,1,0,2">
        <item>
         <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Кількість виконаних нотаток: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
@@ -30,6 +41,14 @@
        </item>
        <item>
         <widget class="QLabel" name="doneLbl">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string>count</string>
          </property>
@@ -56,6 +75,31 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="minimumSize">
+          <size>
+           <width>90</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+            QPushButton {
+               font-size: 12pt;
+               border-style: outset;
+               border-width: 2px;
+               border-radius: 10px;
+               background-color: rgb(112, 91, 218);
+               color: white;
+               border: none;
+            }
+            QPushButton:hover {
+               background-color: rgb(92, 71, 198);
+            }
+            QPushButton:pressed {
+               background-color: rgb(72, 51, 178);
+            }
+</string>
+         </property>
          <property name="text">
           <string>Очистити</string>
          </property>
@@ -70,6 +114,14 @@
       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="2,1,1">
        <item>
         <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string>Кількість не виконаних нотаток: </string>
          </property>
@@ -77,6 +129,14 @@
        </item>
        <item>
         <widget class="QLabel" name="noteLbl">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string>count</string>
          </property>
@@ -101,6 +161,14 @@
       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="2,2,0">
        <item>
         <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string>Кількість нотаток в кошику: </string>
          </property>
@@ -108,6 +176,14 @@
        </item>
        <item>
         <widget class="QLabel" name="basketLbl">
+         <property name="font">
+          <font>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);</string>
+         </property>
          <property name="text">
           <string>count</string>
          </property>
@@ -123,6 +199,31 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>90</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+            QPushButton {
+               font-size: 12pt;
+               border-style: outset;
+               border-width: 2px;
+               border-radius: 10px;
+               background-color: rgb(112, 91, 218);
+               color: white;
+               border: none;
+            }
+            QPushButton:hover {
+               background-color: rgb(92, 71, 198);
+            }
+            QPushButton:pressed {
+               background-color: rgb(72, 51, 178);
+            }
+</string>
          </property>
          <property name="text">
           <string>Очистити</string>
@@ -167,6 +268,33 @@
     <layout class="QVBoxLayout" name="rightLY">
      <item>
       <widget class="QPushButton" name="pushButton">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton
+{
+	font-size: 12pt;
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	background-color: rgb(152, 133, 248);
+	color: rgb(0, 0, 0);
+	border-color: rgb(17, 15, 27);
+}
+QPushButton:hover
+{
+	background-color: rgb(121, 97, 245);
+}
+QPushButton:pressed
+{
+	background-color: rgb(97, 72, 226);
+}</string>
+       </property>
        <property name="text">
         <string>Очистити список</string>
        </property>
