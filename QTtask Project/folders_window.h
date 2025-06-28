@@ -23,6 +23,8 @@ private slots:
 
     void displayFolders();
 
+    void on_closeBtn_clicked();
+
 private:
     Ui::folders_window *ui;
 

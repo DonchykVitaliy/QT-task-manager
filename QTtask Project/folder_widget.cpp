@@ -117,8 +117,9 @@ folder_widget::folder_widget(const QString &title, const QString &date, const QS
 
     // якщо ввімкнене нагадування
     if (important) {
-        dateLabel->setStyleSheet("color: red; font-weight: bold;");
+        dateLabel->setStyleSheet("color: rgb(112, 91, 218); font-weight: bold;");
         notificationButton = new QPushButton("Вимкнути нагадування", this);
+        notificationButton->setMinimumHeight(30);
         notificationButton->setStyleSheet(
             "QPushButton {"
             "   font-size: 12pt;"
@@ -137,6 +138,7 @@ folder_widget::folder_widget(const QString &title, const QString &date, const QS
             "}"
             );
         buttonLayout->addWidget(notificationButton);
+        connect(notificationButton, &QPushButton::clicked, this, &folder_widget::taskNotf);
     }
 
     // Основний layout

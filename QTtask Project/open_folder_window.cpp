@@ -7,7 +7,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QDialog>
 #include <QFile>
+#include <QLabel>
 #include <QDebug>
 #include <QFileSystemWatcher>
 #include <QListWidgetItem>
@@ -147,6 +149,35 @@ void open_folder_window::loadNotes()
 
                         loadNotes();
                     });
+
+                    // вимкнути нагадування
+                    connect(folderWidget, &folder_widget::taskNotf, this, [this, filePath,noteName]() {
+                        QFile file(filePath);
+                        if (!file.open(QIODevice::ReadOnly)) {
+                            qWarning() << "Не вдалося відкрити файл для читання:" << filePath;
+                            return;
+                        }
+
+                        QByteArray fileData = file.readAll();
+                        file.close();
+
+                        QJsonDocument doc = QJsonDocument::fromJson(fileData);
+                        QJsonObject settingsObj = doc.object();
+
+                        //зміна параметру
+                        if (settingsObj.contains("Notf")) {
+                            settingsObj["Notf"] = false;
+                        }
+
+                        //запис у файл
+                        if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+                            QJsonDocument newDoc(settingsObj);
+                            file.write(newDoc.toJson(QJsonDocument::Indented)); // красиво
+                            file.close();
+                        }
+
+                        loadNotes();
+                    });
                 }
             }
         }
@@ -159,13 +190,127 @@ void open_folder_window::loadNotes()
 //rename
 void open_folder_window::on_renameBtn_clicked()
 {
-    QString newName = QInputDialog::getText(
-        this,
-        "Зміна назви папки",
-        "Вкажіть нову назву для цієї папки:"
-        );
+    QDialog dialog(this);
+    dialog.setWindowTitle("Зміна назви папки");
+    QLabel *label = new QLabel("Вкажіть нову назву для цієї папки:");
+    QLineEdit *line = new QLineEdit;
+    QPushButton *okBtn = new QPushButton("Перейменувати");
+    QPushButton *cancelBtn = new QPushButton("Скасувати");
+    line->setStyleSheet(R"(
+QLineEdit
+{
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
 
-    if (!newName.isEmpty())
+
+    background-color: rgb(235, 235, 235);
+    border-color: rgb(196, 196, 196);
+    color: rgb(119, 120, 115);
+}
+)");
+    label->setStyleSheet("color:white;");
+    okBtn->setStyleSheet(
+        "QPushButton {"
+        "   font-size: 12pt;"
+        "   border-style: outset;"
+        "   border-width: 2px;"
+        "   border-radius: 10px;"
+        "   background-color: rgb(152, 133, 248);"
+        "   color: white;"
+        "   border: none;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: rgb(132, 113, 228);"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: rgb(112, 93, 208);"
+        "}"
+        );
+    cancelBtn->setStyleSheet(
+        "QPushButton {"
+        "   font-size: 12pt;"
+        "   border-style: outset;"
+        "   border-width: 2px;"
+        "   border-radius: 10px;"
+        "   background-color: rgb(152, 133, 248);"
+        "   color: white;"
+        "   border: none;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: rgb(132, 113, 228);"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: rgb(112, 93, 208);"
+        "}"
+        );
+    cancelBtn->setMinimumHeight(30);
+    okBtn->setMinimumHeight(30);
+    cancelBtn->setMinimumWidth(135);
+    okBtn->setMinimumWidth(150);
+
+    QVBoxLayout *layout = new QVBoxLayout(&dialog);
+    QHBoxLayout *btnLayout = new QHBoxLayout;
+    btnLayout->addWidget(okBtn);
+    btnLayout->addWidget(cancelBtn);
+
+    layout->addWidget(label);
+    layout->addWidget(line);
+    layout->addLayout(btnLayout);
+
+    QString newName;
+    connect(okBtn, &QPushButton::clicked, [&] ()
+            {
+        newName = line->text();
+        if (newName != ""){
+            dialog.accept();
+        }
+        else
+            {
+            QDialog dialogW(this);
+            dialogW.setWindowTitle("Помилка");
+            QLabel *label = new QLabel("Ви не ввели нову назву папки!");
+            QPushButton *okBtn = new QPushButton("Окей");
+            label->setStyleSheet("color:white;");
+            okBtn->setStyleSheet(
+                "QPushButton {"
+                "   font-size: 12pt;"
+                "   border-style: outset;"
+                "   border-width: 2px;"
+                "   border-radius: 10px;"
+                "   background-color: rgb(152, 133, 248);"
+                "   color: white;"
+                "   border: none;"
+                "}"
+                "QPushButton:hover {"
+                "   background-color: rgb(132, 113, 228);"
+                "}"
+                "QPushButton:pressed {"
+                "   background-color: rgb(112, 93, 208);"
+                "}"
+                );
+            okBtn->setMinimumHeight(30);
+
+            QVBoxLayout *layout = new QVBoxLayout(&dialogW);
+            QHBoxLayout *btnLayout = new QHBoxLayout;
+            btnLayout->addWidget(okBtn);
+
+            layout->addWidget(label);
+            layout->addLayout(btnLayout);
+
+            connect(okBtn, &QPushButton::clicked, [&] ()
+                    {
+                        dialogW.accept();
+                    });
+
+            dialogW.exec();
+        }
+            });
+    connect(cancelBtn,&QPushButton::clicked, &dialog, &QDialog::reject);
+
+    dialog.exec();
+
+    if (QDialog::Accepted && newName != "")
     {
         QString filePath = "Folders/" + fileName;
         QString newFilePath = "Folders/" + newName + ".json";
@@ -173,27 +318,82 @@ void open_folder_window::on_renameBtn_clicked()
         QFile::rename(filePath,newFilePath);
         this->setWindowTitle(newName);
     }
-    else{}
 }
 
 
 //delete
 void open_folder_window::on_deleteBtn_clicked()
 {
-    QMessageBox miniBox;
-    miniBox.setWindowTitle("Підтвердження");
-    miniBox.setText("Ви впевненні, що хочете видалити папку?\nВсі нотатки залишуться не тронутими");
-    QPushButton *yesBut = miniBox.addButton("Так", QMessageBox::YesRole);
-    QPushButton *noBut = miniBox.addButton("Ні", QMessageBox::NoRole);
-    miniBox.setDefaultButton(noBut);
-    miniBox.exec();
+QDialog dialog(this);
+    dialog.setWindowTitle("Підтвердження");
+    QLabel *label = new QLabel("Ви впевнені,що хочете видалити папку?\nВсі нотатки залишуться не тронутими?");
+    QPushButton *okBtn = new QPushButton("Так");
+    QPushButton *cancelBtn = new QPushButton("Ні");
+    label->setStyleSheet("color:white;");
+    okBtn->setStyleSheet(
+        "QPushButton {"
+        "   font-size: 12pt;"
+        "   border-style: outset;"
+        "   border-width: 2px;"
+        "   border-radius: 10px;"
+        "   background-color: rgb(152, 133, 248);"
+        "   color: white;"
+        "   border: none;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: rgb(132, 113, 228);"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: rgb(112, 93, 208);"
+        "}"
+        );
+    cancelBtn->setStyleSheet(
+        "QPushButton {"
+        "   font-size: 12pt;"
+        "   border-style: outset;"
+        "   border-width: 2px;"
+        "   border-radius: 10px;"
+        "   background-color: rgb(152, 133, 248);"
+        "   color: white;"
+        "   border: none;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: rgb(132, 113, 228);"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: rgb(112, 93, 208);"
+        "}"
+        );
+    cancelBtn->setMinimumHeight(30);
+    okBtn->setMinimumHeight(30);
+    cancelBtn->setMinimumWidth(135);
+    okBtn->setMinimumWidth(125);
 
-    if (miniBox.clickedButton() == yesBut)
+    QVBoxLayout *layout = new QVBoxLayout(&dialog);
+    QHBoxLayout *btnLayout = new QHBoxLayout;
+    btnLayout->addWidget(okBtn);
+    btnLayout->addWidget(cancelBtn);
+
+    layout->addWidget(label);
+    layout->addLayout(btnLayout);
+
+    connect(okBtn, &QPushButton::clicked, [&] ()
+            {
+                dialog.accept();
+            });
+    connect(cancelBtn, &QPushButton::clicked, [&] ()
+            {
+                dialog.reject();
+            });
+
+    int result = dialog.exec();
+
+    if (result == QDialog::Accepted)
     {
         QString directoryPath = "Folders/" + fileName;
         QFile::remove(directoryPath);
         this->close();
     }
-    else{}
+
 }
 

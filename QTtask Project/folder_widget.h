@@ -19,6 +19,7 @@ signals:
     void taskCompleted();
     void taskDeleted();
     void taskEdit();
+    void taskNotf();
 
 private:
     QLabel *titleLabel;

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Створення папки</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(17, 15, 27);</string>
@@ -98,6 +98,30 @@ QPushButton:pressed
    </item>
    <item row="0" column="0" colspan="2">
     <widget class="QLineEdit" name="nameFile">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit
+{
+	border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+	
+	
+	background-color: rgb(235, 235, 235);
+	border-color: rgb(196, 196, 196);
+	color: rgb(119, 120, 115);
+}</string>
+     </property>
      <property name="text">
       <string/>
      </property>

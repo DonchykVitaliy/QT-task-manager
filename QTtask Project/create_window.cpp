@@ -4,6 +4,7 @@
 #include <QDate>
 #include <QDir>
 #include <QString>
+#include <QLabel>
 #include <QMessageBox>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -43,10 +44,45 @@ void create_window::on_createBtn_clicked()
     QString noteDate = ui->dataFile->date().toString("yyyy-MM-dd");
     bool noteNotf = ui->notificationRd->isChecked();
 
-
     if (noteName=="")
     {
-        QMessageBox::warning(this, "Помилка створення", "Ви не ввели назву нотатки!");
+        QDialog dialogW(this);
+        dialogW.setWindowTitle("Помилка");
+        QLabel *label = new QLabel("Ви не ввели назву нотатки!");
+        QPushButton *okBtn = new QPushButton("Окей");
+        label->setStyleSheet("color:white;");
+        okBtn->setStyleSheet(
+            "QPushButton {"
+            "   font-size: 12pt;"
+            "   border-style: outset;"
+            "   border-width: 2px;"
+            "   border-radius: 10px;"
+            "   background-color: rgb(152, 133, 248);"
+            "   color: white;"
+            "   border: none;"
+            "}"
+            "QPushButton:hover {"
+            "   background-color: rgb(132, 113, 228);"
+            "}"
+            "QPushButton:pressed {"
+            "   background-color: rgb(112, 93, 208);"
+            "}"
+            );
+        okBtn->setMinimumHeight(30);
+
+        QVBoxLayout *layout = new QVBoxLayout(&dialogW);
+        QHBoxLayout *btnLayout = new QHBoxLayout;
+        btnLayout->addWidget(okBtn);
+
+        layout->addWidget(label);
+        layout->addLayout(btnLayout);
+
+        connect(okBtn, &QPushButton::clicked, [&] ()
+                {
+                    dialogW.accept();
+                });
+
+        dialogW.exec();
     }
     else
     {
@@ -71,33 +107,89 @@ void create_window::on_createBtn_clicked()
         } else {
             QMessageBox::critical(this, "Помилка", "Не вдалося створити файл!");
         }
-
     }
-
-
-
 }
 
 
 //попередження перед закриттям
 void create_window::closeEvent(QCloseEvent *event)
 {
+    QString text = ui->textFile->toPlainText();
+    if (text == "")
+        allow = true;
+
     if (!allow)
     {
-    QMessageBox msg(this);
-    msg.setWindowTitle("Вихід");
-    msg.setText("Ви впевнені, що хочете закрити вікно створення нотатки?");
-    QPushButton *yes = msg.addButton(tr("Так"), QMessageBox::YesRole);
-    QPushButton *no = msg.addButton(tr("Ні"), QMessageBox::NoRole);
-    msg.setDefaultButton(no);
+        QDialog dialog(this);
+        dialog.setWindowTitle("Вихід");
+        QLabel *label = new QLabel("Ви впевнені, що хочете закрити вікно створення нотатки?");
+        QPushButton *okBtn = new QPushButton("Закрити");
+        QPushButton *cancelBtn = new QPushButton("Скасувати");
+        label->setStyleSheet("color:white;");
+        okBtn->setStyleSheet(
+            "QPushButton {"
+            "   font-size: 12pt;"
+            "   border-style: outset;"
+            "   border-width: 2px;"
+            "   border-radius: 10px;"
+            "   background-color: rgb(152, 133, 248);"
+            "   color: white;"
+            "   border: none;"
+            "}"
+            "QPushButton:hover {"
+            "   background-color: rgb(132, 113, 228);"
+            "}"
+            "QPushButton:pressed {"
+            "   background-color: rgb(112, 93, 208);"
+            "}"
+            );
+        cancelBtn->setStyleSheet(
+            "QPushButton {"
+            "   font-size: 12pt;"
+            "   border-style: outset;"
+            "   border-width: 2px;"
+            "   border-radius: 10px;"
+            "   background-color: rgb(152, 133, 248);"
+            "   color: white;"
+            "   border: none;"
+            "}"
+            "QPushButton:hover {"
+            "   background-color: rgb(132, 113, 228);"
+            "}"
+            "QPushButton:pressed {"
+            "   background-color: rgb(112, 93, 208);"
+            "}"
+            );
+        cancelBtn->setMinimumHeight(30);
+        okBtn->setMinimumHeight(30);
+        cancelBtn->setMinimumWidth(135);
+        okBtn->setMinimumWidth(125);
 
-    msg.exec();
+        QVBoxLayout *layout = new QVBoxLayout(&dialog);
+        QHBoxLayout *btnLayout = new QHBoxLayout;
+        btnLayout->addWidget(okBtn);
+        btnLayout->addWidget(cancelBtn);
 
-    if (msg.clickedButton() == yes) {
-        event->accept(); //дозволити закриття
-    } else {
-        event->ignore(); //скасувати
-    }
-}
+        layout->addWidget(label);
+        layout->addLayout(btnLayout);
+
+        connect(okBtn, &QPushButton::clicked, [&] ()
+                {
+                    dialog.accept();
+                });
+        connect(cancelBtn, &QPushButton::clicked, [&] ()
+                {
+                    dialog.reject();
+                });
+
+        int result = dialog.exec();
+
+        if (result == QDialog::Accepted)
+        {
+            event->accept();
+        }
+        else
+            event->ignore();
+        }
 }
 

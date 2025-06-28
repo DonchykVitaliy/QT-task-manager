@@ -4,6 +4,7 @@
 #include "folders_widget.h"
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QJsonArray>
 #include "open_folder_window.h"
 
 folders_window::folders_window(QWidget *parent) :
@@ -12,7 +13,7 @@ folders_window::folders_window(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // Ініціалізуємо QScrollArea для відображення плиток
+    //для відображення плиток
     scrollArea = new QScrollArea(this);
     scrollArea->setStyleSheet(R"(
     QScrollBar:vertical {
@@ -41,17 +42,17 @@ folders_window::folders_window(QWidget *parent) :
     layout = new QVBoxLayout(container);
     scrollArea->setWidget(container);
     scrollArea->setWidgetResizable(true);
-    ui->mainLY->addWidget(scrollArea);  // Додаємо QScrollArea до головного вікна
+    ui->mainLY->addWidget(scrollArea);
 
     // шлях до нотаток
     QString directoryPath = "Folders/";
     watcher = new QFileSystemWatcher(this);
     watcher->addPath(directoryPath);
 
-    // Підключаємо сигнал до слота для оновлення списку нотаток
+    //оновлення списку нотаток
     connect(watcher, &QFileSystemWatcher::directoryChanged, this, &folders_window::displayFolders);
 
-    displayFolders();  // Початкове заповнення списку
+    displayFolders();
 }
 
 folders_window::~folders_window()
@@ -75,38 +76,72 @@ void folders_window::displayFolders()
     QDir dir(directoryPath);
     QStringList jsonFiles = dir.entryList(QStringList() << "*.json", QDir::Files);
 
-    // Очищення списку віджетів
+    //oчищення віджетів
     QLayoutItem *item;
     while ((item = layout->takeAt(0)) != nullptr) {
         delete item->widget();
         delete item;
     }
 
-    for (const QString &fileName : jsonFiles) {
-        QString filePath = dir.filePath(fileName);
-        QFile file(filePath);
+    // перевірка на пустоту
+    if (jsonFiles.isEmpty())
+    {
+        QLabel *emptyLbl = new QLabel("Поки папок немає", this);
+        emptyLbl->setStyleSheet("color: white; padding: 2px; font-size: 12pt");
+        emptyLbl->setAlignment(Qt::AlignCenter);
+        layout->addWidget(emptyLbl);
+    }
+    else
+    {
+        //пошук папок
+        int count = 0;
+        for (const QString &fileName : jsonFiles) {
 
-        if (file.open(QIODevice::ReadOnly)) {
-            QByteArray fileData = file.readAll();
-            file.close();
+            //підрахунок списку нотаток до папки
+            QString filePath = directoryPath + fileName;
+            QFile file(filePath);
+            QJsonArray notesArray;
 
-            QJsonDocument doc = QJsonDocument::fromJson(fileData);
-            if (!doc.isNull() && doc.isObject()) {
-                QJsonObject noteObject = doc.object();
-                QString countTitle = noteObject["Count"].toString();
+            //зчитування даних про папку
+            if (file.open(QIODevice::ReadOnly)) {
+                QByteArray fileData = file.readAll();
+                file.close();
 
-                folders_widget *foldersWidget = new folders_widget(fileName, countTitle, this);
-                layout->addWidget(foldersWidget);
+                QJsonDocument doc = QJsonDocument::fromJson(fileData);
+                if (!doc.isNull() && doc.isObject()) {
+                    QJsonObject noteObject = doc.object();
 
-                // видалити нотатку
-                connect(foldersWidget, &folders_widget::openFolder, this, [this, filePath,fileName]() {
-                    open_folder_window *folder = new open_folder_window(fileName);
-                    folder->setAttribute(Qt::WA_DeleteOnClose);  //автоматично видаляється при закритті
-                    folder->show();
-                });
+                    //рахується кількість
+                    if (noteObject.contains("Notes") && noteObject["Notes"].isArray()) {
+                        notesArray = noteObject["Notes"].toArray();
 
+                        for (const QJsonValue &val : notesArray) {
+                            if (val.isString()) {
+                                count++;
+                            }
+                        }
+                    }
+                }
             }
+
+            QString countTitle = QString::number(count);
+            folders_widget *foldersWidget = new folders_widget(fileName, countTitle, this);
+            layout->addWidget(foldersWidget);
+
+            // відкрити папку
+            connect(foldersWidget, &folders_widget::openFolder, this, [this, filePath,fileName]() {
+                open_folder_window *folder = new open_folder_window(fileName, this);
+                folder->setWindowFlag(Qt::Window);
+                folder->setAttribute(Qt::WA_DeleteOnClose);  //автоматично видаляється при закритті
+                folder->show();
+            });
         }
     }
+}
+
+
+void folders_window::on_closeBtn_clicked()
+{
+    this->close();
 }
 

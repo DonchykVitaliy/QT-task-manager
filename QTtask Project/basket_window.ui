@@ -50,22 +50,28 @@
          <property name="styleSheet">
           <string notr="true">QPushButton
 {
-	border-style: outset;
+    border-style: outset;
     border-width: 2px;
     border-radius: 10px;
-	
-	background-color: rgb(152, 133, 248);
-	color: rgb(0, 0, 0);
-	border-color: rgb(17, 15, 27);
+
+    background-color: rgb(152, 133, 248);
+    color: rgb(0, 0, 0);
+    border-color: rgb(17, 15, 27);
 }
 QPushButton:hover
 {
-	background-color: rgb(121, 97, 245);
+    background-color: rgb(121, 97, 245);
 }
 QPushButton:pressed
 {
-	background-color: rgb(97, 72, 226);
-}</string>
+    background-color: rgb(97, 72, 226);
+}
+QPushButton:disabled
+{
+    background-color: rgb(200, 200, 200); 
+    color: rgb(120, 120, 120);
+}
+</string>
          </property>
          <property name="text">
           <string>Очистити кошик</string>

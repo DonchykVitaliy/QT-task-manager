@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QCheckBox>
 #include <QVBoxLayout>
+#include <QLabel>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QMessageBox>
@@ -76,7 +77,6 @@ void create_folder_widnow::on_createBtn_clicked()
 {
     //
     QString folderName = ui->nameFile->text();
-    int count = 0;
 
     //списки
     QStringList notesBox;
@@ -108,17 +108,50 @@ void create_folder_widnow::on_createBtn_clicked()
                 if (title == CheckBox->text())
                 {
                     notesBox << fileName;
-                    count++;
                 }
             }
         }
     }
 
-    qDebug() << notesBox;
-
     if (folderName=="")
     {
-        QMessageBox::warning(this, "Помилка створення", "Ви не ввели назву папки!");
+        QDialog dialog(this);
+        dialog.setWindowTitle("Помилка");
+        QLabel *label = new QLabel("Ви не ввели назву папки!");
+        QPushButton *okBtn = new QPushButton("Окей");
+        label->setStyleSheet("color:white;");
+        okBtn->setStyleSheet(
+            "QPushButton {"
+            "   font-size: 12pt;"
+            "   border-style: outset;"
+            "   border-width: 2px;"
+            "   border-radius: 10px;"
+            "   background-color: rgb(152, 133, 248);"
+            "   color: white;"
+            "   border: none;"
+            "}"
+            "QPushButton:hover {"
+            "   background-color: rgb(132, 113, 228);"
+            "}"
+            "QPushButton:pressed {"
+            "   background-color: rgb(112, 93, 208);"
+            "}"
+            );
+        okBtn->setMinimumHeight(30);
+
+        QVBoxLayout *layout = new QVBoxLayout(&dialog);
+        QHBoxLayout *btnLayout = new QHBoxLayout;
+        btnLayout->addWidget(okBtn);
+
+        layout->addWidget(label);
+        layout->addLayout(btnLayout);
+
+        connect(okBtn, &QPushButton::clicked, [&] ()
+                {
+                    dialog.accept();
+                });
+
+        dialog.exec();
     }
     else
     {
@@ -130,11 +163,9 @@ void create_folder_widnow::on_createBtn_clicked()
             jsonArray.append(str);
         }
         //кількість нотаток в папці
-        QString countNotes = QString::number(count);
         // створення JSON обєкта для збереження даних
         QJsonObject noteObject;
         noteObject["Notes"] = jsonArray;
-        noteObject["Count"] = countNotes;
 
         // запис JSON у файл
         QFile file(fileFolder);

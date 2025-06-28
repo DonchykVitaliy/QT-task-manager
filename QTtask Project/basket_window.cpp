@@ -72,57 +72,71 @@ void basket_window::updateBasketList()
     QDir dir(directoryPath);
     QStringList jsonFiles = dir.entryList(QStringList() << "*.json", QDir::Files);
 
-    // Очищення списку віджетів
+    // oчищення списку віджетів
     QLayoutItem *item;
     while ((item = layout->takeAt(0)) != nullptr) {
         delete item->widget();
         delete item;
     }
 
-    for (const QString &fileName : jsonFiles) {
-        QString filePath = dir.filePath(fileName);
-        QFile file(filePath);
+    // перевірка на пустоту
+    if (jsonFiles.isEmpty())
+    {
+        ui->pushButton->setEnabled(false);
 
-        if (file.open(QIODevice::ReadOnly)) {
-            QByteArray fileData = file.readAll();
-            file.close();
+        QLabel *emptyLbl = new QLabel("Кошик пустий", this);
+        emptyLbl->setStyleSheet("color: white; padding: 2px; font-size: 12pt");
+        emptyLbl->setAlignment(Qt::AlignCenter);
+        layout->addWidget(emptyLbl);
+    }
+    else
+    {
+        ui->pushButton->setEnabled(true);
+        for (const QString &fileName : jsonFiles) {
+            QString filePath = dir.filePath(fileName);
+            QFile file(filePath);
 
-            QJsonDocument doc = QJsonDocument::fromJson(fileData);
-            if (!doc.isNull() && doc.isObject()) {
-                QJsonObject noteObject = doc.object();
-                QString noteTitle = noteObject["Name"].toString();
-                QString noteDate = noteObject["Date"].toString();
-                QString noteText = noteObject["Text"].toString();
-                bool noteNotf = noteObject["Notf"].toBool();
+            if (file.open(QIODevice::ReadOnly)) {
+                QByteArray fileData = file.readAll();
+                file.close();
 
-                basket_widget *basketWidget = new basket_widget(noteTitle, noteDate, noteText, noteNotf, this);
-                if (noteNotf) {
-                    basketWidget->setStyleSheet("QWidget { border: 2px solid red; }");
-                }
-                layout->addWidget(basketWidget);
+                QJsonDocument doc = QJsonDocument::fromJson(fileData);
+                if (!doc.isNull() && doc.isObject()) {
+                    QJsonObject noteObject = doc.object();
+                    QString noteTitle = noteObject["Name"].toString();
+                    QString noteDate = noteObject["Date"].toString();
+                    QString noteText = noteObject["Text"].toString();
+                    bool noteNotf = noteObject["Notf"].toBool();
 
-                // видалити нотатку
-                connect(basketWidget, &basket_widget::taskDeleted, this, [this, filePath,fileName]() {
-                    QFile::remove(filePath);  // Видалення файлу після завершення
-                    updateBasketList();         // Оновлення списку
-                });
-
-                // відновити нотатку
-                connect(basketWidget, &basket_widget::taskResume, this, [this, filePath,fileName]() {
-                    QString fileDir = "Basket/" + fileName;
-                    QString directoryPath = "Notes/";
-
-                    //generation name file
-                    QString newName = generateFileName(directoryPath);
-
-                    if (QFile::rename(fileDir, newName)) {
-                        qDebug() << "Файл переміщено до нотаток: " << newName;
-                    } else {
-                        qDebug() << "Не вдалося перемістити файл!";
+                    basket_widget *basketWidget = new basket_widget(noteTitle, noteDate, noteText, noteNotf, this);
+                    if (noteNotf) {
+                        basketWidget->setStyleSheet("QWidget { border: 2px solid red; }");
                     }
-                    QFile::remove(filePath);  // Видалення файлу
-                    updateBasketList();         // Оновлення списку
-                });
+                    layout->addWidget(basketWidget);
+
+                    // видалити нотатку
+                    connect(basketWidget, &basket_widget::taskDeleted, this, [this, filePath,fileName]() {
+                        QFile::remove(filePath);  // Видалення файлу після завершення
+                        updateBasketList();         // Оновлення списку
+                    });
+
+                    // відновити нотатку
+                    connect(basketWidget, &basket_widget::taskResume, this, [this, filePath,fileName]() {
+                        QString fileDir = "Basket/" + fileName;
+                        QString directoryPath = "Notes/";
+
+                        //generation name file
+                        QString newName = generateFileName(directoryPath);
+
+                        if (QFile::rename(fileDir, newName)) {
+                            qDebug() << "Файл переміщено до нотаток: " << newName;
+                        } else {
+                            qDebug() << "Не вдалося перемістити файл!";
+                        }
+                        QFile::remove(filePath);  // Видалення файлу
+                        updateBasketList();         // Оновлення списку
+                    });
+                }
             }
         }
     }
@@ -130,15 +144,71 @@ void basket_window::updateBasketList()
 
 void basket_window::on_pushButton_clicked()
 {
-    QMessageBox miniBox;
-    miniBox.setWindowTitle("Підтвердження");
-    miniBox.setText("Ви впевненні, що хочете очистити кошик?");
-    QPushButton *yesBut = miniBox.addButton("Так", QMessageBox::YesRole);
-    QPushButton *noBut = miniBox.addButton("Ні", QMessageBox::NoRole);
-    miniBox.setDefaultButton(noBut);
-    miniBox.exec();
+    QDialog dialog(this);
+    dialog.setWindowTitle("Підтвердження");
+    QLabel *label = new QLabel("Ви впевнені,що хочете очистити кошик?");
+    QPushButton *okBtn = new QPushButton("Так");
+    QPushButton *cancelBtn = new QPushButton("Ні");
+    label->setStyleSheet("color:white;");
+    okBtn->setStyleSheet(
+        "QPushButton {"
+        "   font-size: 12pt;"
+        "   border-style: outset;"
+        "   border-width: 2px;"
+        "   border-radius: 10px;"
+        "   background-color: rgb(152, 133, 248);"
+        "   color: white;"
+        "   border: none;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: rgb(132, 113, 228);"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: rgb(112, 93, 208);"
+        "}"
+        );
+    cancelBtn->setStyleSheet(
+        "QPushButton {"
+        "   font-size: 12pt;"
+        "   border-style: outset;"
+        "   border-width: 2px;"
+        "   border-radius: 10px;"
+        "   background-color: rgb(152, 133, 248);"
+        "   color: white;"
+        "   border: none;"
+        "}"
+        "QPushButton:hover {"
+        "   background-color: rgb(132, 113, 228);"
+        "}"
+        "QPushButton:pressed {"
+        "   background-color: rgb(112, 93, 208);"
+        "}"
+        );
+    cancelBtn->setMinimumHeight(30);
+    okBtn->setMinimumHeight(30);
+    cancelBtn->setMinimumWidth(135);
+    okBtn->setMinimumWidth(125);
 
-    if (miniBox.clickedButton() == yesBut)
+    QVBoxLayout *layout = new QVBoxLayout(&dialog);
+    QHBoxLayout *btnLayout = new QHBoxLayout;
+    btnLayout->addWidget(okBtn);
+    btnLayout->addWidget(cancelBtn);
+
+    layout->addWidget(label);
+    layout->addLayout(btnLayout);
+
+    connect(okBtn, &QPushButton::clicked, [&] ()
+            {
+                dialog.accept();
+            });
+    connect(cancelBtn, &QPushButton::clicked, [&] ()
+            {
+                dialog.reject();
+            });
+
+    int result = dialog.exec();
+
+    if (result == QDialog::Accepted)
     {
         QString directoryPath = "Basket/";
         QDir dir(directoryPath);
@@ -148,7 +218,6 @@ void basket_window::on_pushButton_clicked()
             QFile::remove(filePath);
         }
     }
-    else{}
 
 }
 

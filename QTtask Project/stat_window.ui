@@ -293,6 +293,11 @@ QPushButton:hover
 QPushButton:pressed
 {
 	background-color: rgb(97, 72, 226);
+}
+QPushButton:disabled
+{
+    background-color: rgb(200, 200, 200); 
+    color: rgb(120, 120, 120);
 }</string>
        </property>
        <property name="text">
