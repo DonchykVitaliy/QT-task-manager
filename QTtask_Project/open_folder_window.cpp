@@ -30,7 +30,9 @@ open_folder_window::open_folder_window(const QString &fileName, QWidget *parent)
     // Ініціалізуємо QScrollArea для відображення плиток
     scrollArea = new QScrollArea(this);
     container = new QWidget;
+    container->setStyleSheet("background-color: #0a0910;");
     layout = new QVBoxLayout(container);
+    layout->setAlignment(Qt::AlignTop);
     scrollArea->setWidget(container);
     scrollArea->setWidgetResizable(true);
     ui->mainLY->addWidget(scrollArea);  // Додаємо QScrollArea до головного вікна

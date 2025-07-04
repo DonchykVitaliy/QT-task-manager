@@ -7,7 +7,9 @@
 #include "settings_window.h"
 #include "folders_window.h"
 #include "generate_name.h"
+#include "count_complited_note.h"
 #include "edit_task_window.h"
+#include "calendar_window.h"
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
@@ -52,7 +54,9 @@ MainWindow::MainWindow(QWidget *parent)
         background: none;
     })");
     container = new QWidget;
+    container->setStyleSheet("background-color: #0a0910;");
     layout = new QVBoxLayout(container);
+    layout->setAlignment(Qt::AlignTop);
     scrollArea->setWidget(container);
     scrollArea->setWidgetResizable(true);
     ui->verticalLayout->addWidget(scrollArea);  // Додаємо QScrollArea до головного вікна
@@ -128,7 +132,7 @@ void MainWindow::updateNoteList()
                     if (QFile::rename(fileDir, newName)) {
                         qDebug() << "Файл переміщено до статистики: " << newName;
                         QFile::remove(filePath);
-                        countComplitedNote();
+                        count_complited_note();
                     } else {
                         qDebug() << "Не вдалося перемістити файл!";
                     }
@@ -193,44 +197,6 @@ void MainWindow::updateNoteList()
     }
 }
 
-
-//підрахунок виконаних нотаток
-void MainWindow::countComplitedNote()
-{
-    QString filePath = "Settings/Count_notes.json";
-    QFile file(filePath);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug() << "Не вдалося відкрити файл Count_notes!";
-        return;
-    }
-
-    // збір інфи з файлу
-    QByteArray fileData = file.readAll();
-    file.close();
-    QJsonDocument doc = QJsonDocument::fromJson(fileData);  // json -> info
-    QJsonObject countObj = doc.object();
-
-    //береться значення за ключем з джисону
-    QString key = "Complited_notes";
-    int valueCompl = 0;
-
-    if (countObj.contains(key) && countObj[key].isDouble()) {
-        valueCompl = countObj[key].toInt();
-    } else {
-        qDebug() << "Ключ не знайдено або не є цілим числом";
-        return;
-    }
-
-    valueCompl += 1;     // доповнюється список виконаних нотаток
-
-    //повертаємо в обєкт та файл
-    countObj[key] = valueCompl;
-    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        QJsonDocument newDoc(countObj);
-        file.write(newDoc.toJson(QJsonDocument::Indented));
-        file.close();
-    }
-}
 
 
 //кнопка кошику
@@ -316,7 +282,7 @@ void MainWindow::on_searchText_textChanged()
                             if (QFile::rename(fileDir, newName)) {
                                 qDebug() << "Файл переміщено до статистики: " << newName;
                                 QFile::remove(filePath);
-                                countComplitedNote();
+                                count_complited_note();
                             } else {
                                 qDebug() << "Не вдалося перемістити файл!";
                             }
@@ -359,7 +325,8 @@ void MainWindow::on_clearBut_clicked()
 //кнопка календара
 void MainWindow::on_calendarBut_clicked()
 {
-
+    calendar_window calendar;
+    calendar.exec();
 }
 
 

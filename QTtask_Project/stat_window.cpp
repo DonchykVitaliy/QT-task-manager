@@ -1,6 +1,7 @@
 #include "stat_window.h"
 #include "ui_stat_window.h"
 #include "generate_name.h"
+#include "stat_line_widget.h"
 #include <QDir>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -46,7 +47,9 @@ stat_window::stat_window(QWidget *parent) :
         background: none;
     })");
     container = new QWidget;
+    container->setStyleSheet("background-color: #0a0910;");
     layout = new QVBoxLayout(container);
+    layout->setAlignment(Qt::AlignTop);
     scrollArea->setWidget(container);
     QVBoxLayout *layout = new QVBoxLayout(this);
     scrollArea->setWidgetResizable(true);
@@ -57,10 +60,19 @@ stat_window::stat_window(QWidget *parent) :
     updateStatList();       //оновлення списку
 
     //вивід статистики користувача
+    int done = 0, note = 0, basket = 0;
     updateDoneLbl();    //кількість виконаних
     updateNoteLbl();    //кількість не виконаних
     updateBasketLbl();  //кількість в кошику
 
+    done = ui->doneLbl->text().toInt();
+    note = ui->noteLbl->text().toInt();
+    basket = ui->basketLbl->text().toInt();
+
+    stat_line_widget *statusWidget = new stat_line_widget(this);
+    statusWidget->setCounts(note, done, basket);
+    statusWidget->setStyleSheet("border: 2px solid gray; border-radius: 5px;");
+    ui->statLayout->addWidget(statusWidget);
 }
 
 stat_window::~stat_window()

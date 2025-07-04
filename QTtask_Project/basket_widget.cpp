@@ -109,5 +109,7 @@ basket_widget::basket_widget(const QString &title, const QString &date, const QS
     // Підключаємо сигнали кнопок
     connect(deleteButton, &QPushButton::clicked, this, &basket_widget::taskDeleted);
     connect(resumeButton, &QPushButton::clicked, this, &basket_widget::taskResume);
+
+    setFixedHeight(170);
 }
 

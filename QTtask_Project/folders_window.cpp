@@ -39,17 +39,19 @@ folders_window::folders_window(QWidget *parent) :
         background: none;
     })");
     container = new QWidget;
+    container->setStyleSheet("background-color: #0a0910;");
     layout = new QVBoxLayout(container);
+    layout->setAlignment(Qt::AlignTop);
     scrollArea->setWidget(container);
     scrollArea->setWidgetResizable(true);
     ui->mainLY->addWidget(scrollArea);
 
-    // шлях до нотаток
+    // шлях до папок
     QString directoryPath = "Folders/";
     watcher = new QFileSystemWatcher(this);
     watcher->addPath(directoryPath);
 
-    //оновлення списку нотаток
+    //оновлення списку папок
     connect(watcher, &QFileSystemWatcher::directoryChanged, this, &folders_window::displayFolders);
 
     displayFolders();

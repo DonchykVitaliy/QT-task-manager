@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>open_note</class>
+ <widget class="QWidget" name="open_note">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(17, 15, 27);</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QVBoxLayout" name="mainLY">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QLabel" name="nameLbl">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding: 2px;
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>Назва нотатки</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="dateLbl">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding: 2px;
+color: rgb(255, 255, 255);</string>
+         </property>
+         <property name="text">
+          <string>Дата</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="textEdit">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QTextEdit {
+        background-color: #ebebeb;
+        border: none;
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    QScrollBar:vertical {
+        background: #dcdcdc;
+        width: 10px;
+        margin: 2px 0 2px 0;
+        border-radius: 5px;
+    }
+
+    QScrollBar::handle:vertical {
+        background: #a9a9a9;
+        min-height: 20px;
+        border-radius: 5px;
+    }
+
+    QScrollBar::handle:vertical:hover {
+        background: #888;
+    }
+    QScrollBar::add-line:vertical,
+    QScrollBar::sub-line:vertical {
+        height: 0;
+    }
+    QScrollBar::add-page:vertical,
+    QScrollBar::sub-page:vertical {
+        background: none;
+    }</string>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="doneBtn">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+           font-size: 12pt;
+           border-style: outset;
+         border-width: 2px;
+         border-radius: 10px;
+         background-color: rgb(112, 91, 218);
+        color: white;
+         border: none;
+}
+        QPushButton:hover {
+         background-color: rgb(92, 71, 198);
+        }
+        QPushButton:pressed {
+           background-color: rgb(72, 51, 178);
+ }</string>
+         </property>
+         <property name="text">
+          <string>Виконано</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="deleteBtn">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+           font-size: 12pt;
+           border-style: outset;
+         border-width: 2px;
+         border-radius: 10px;
+         background-color: rgb(112, 91, 218);
+        color: white;
+         border: none;
+}
+        QPushButton:hover {
+         background-color: rgb(92, 71, 198);
+        }
+        QPushButton:pressed {
+           background-color: rgb(72, 51, 178);
+ }</string>
+         </property>
+         <property name="text">
+          <string>Видалити</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="notfBtn">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+           font-size: 12pt;
+           border-style: outset;
+         border-width: 2px;
+         border-radius: 10px;
+         background-color: rgb(112, 91, 218);
+        color: white;
+         border: none;
+}
+        QPushButton:hover {
+         background-color: rgb(92, 71, 198);
+        }
+        QPushButton:pressed {
+           background-color: rgb(72, 51, 178);
+ }</string>
+         </property>
+         <property name="text">
+          <string>Вимнути нагадування</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

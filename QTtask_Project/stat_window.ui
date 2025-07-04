@@ -18,7 +18,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
    <property name="spacing">
-    <number>0</number>
+    <number>5</number>
    </property>
    <item>
     <layout class="QVBoxLayout" name="leftLY" stretch="1,1,1,2,7">
@@ -35,7 +35,7 @@
           <string notr="true">color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Кількість виконаних нотаток: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;🟢Кількість виконаних нотаток: &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -123,7 +123,7 @@
           <string notr="true">color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
-          <string>Кількість не виконаних нотаток: </string>
+          <string>🟡Кількість не виконаних нотаток: </string>
          </property>
         </widget>
        </item>
@@ -170,7 +170,7 @@
           <string notr="true">color: rgb(255, 255, 255);</string>
          </property>
          <property name="text">
-          <string>Кількість нотаток в кошику: </string>
+          <string>🔴Кількість нотаток в кошику: </string>
          </property>
         </widget>
        </item>
@@ -236,17 +236,10 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_7">
-       <item>
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="text">
-          <string>PushButton</string>
-         </property>
-         <property name="autoDefault">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
+      <layout class="QHBoxLayout" name="statLayout">
+       <property name="topMargin">
+        <number>5</number>
+       </property>
       </layout>
      </item>
      <item>

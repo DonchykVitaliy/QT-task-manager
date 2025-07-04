@@ -22,8 +22,6 @@ private slots:
     void on_createBut_clicked();
     void updateNoteList();
 
-    void countComplitedNote();
-
     void on_basketBut_clicked();
 
     void on_statBut_clicked();
@@ -41,10 +39,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    // Нові об'єкти
-    QFileSystemWatcher *watcher;  // Для спостереження за змінами у папці
-    QScrollArea *scrollArea;      // Для відображення кастомних віджетів
-    QWidget *container;           // Контейнер для віджетів
-    QVBoxLayout *layout;          // Layout для розміщення нотаток
+    QFileSystemWatcher *watcher;  //спостереження за змінами в папці
+    QScrollArea *scrollArea;      //відображення кастомних віджетів
+    QWidget *container;           //контейнер для віджетів
+    QVBoxLayout *layout;          // Layout для нотаток
 };
 #endif // MAINWINDOW_H

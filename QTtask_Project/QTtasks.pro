@@ -12,6 +12,8 @@ CONFIG += c++17
 SOURCES += \
     basket_widget.cpp \
     basket_window.cpp \
+    calendar_window.cpp \
+    count_complited_note.cpp \
     create_folder_widnow.cpp \
     create_window.cpp \
     edit_task_window.cpp \
@@ -22,7 +24,9 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     open_folder_window.cpp \
+    open_note.cpp \
     settings_window.cpp \
+    stat_line_widget.cpp \
     stat_widget.cpp \
     stat_window.cpp \
     task_widget.cpp
@@ -30,6 +34,8 @@ SOURCES += \
 HEADERS += \
     basket_widget.h \
     basket_window.h \
+    calendar_window.h \
+    count_complited_note.h \
     create_folder_widnow.h \
     create_window.h \
     edit_task_window.h \
@@ -39,26 +45,28 @@ HEADERS += \
     generate_name.h \
     mainwindow.h \
     open_folder_window.h \
+    open_note.h \
     settings_window.h \
+    stat_line_widget.h \
     stat_widget.h \
     stat_window.h \
     task_widget.h
 
 FORMS += \
     basket_window.ui \
+    calendar_window.ui \
     create_folder_widnow.ui \
     create_window.ui \
     edit_task_window.ui \
     folders_window.ui \
     mainwindow.ui \
     open_folder_window.ui \
+    open_note.ui \
     settings_window.ui \
     stat_window.ui
 
 TRANSLATIONS += \
     QTtasks_uk_UA.ts
-CONFIG += lrelease
-CONFIG += embed_translations
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

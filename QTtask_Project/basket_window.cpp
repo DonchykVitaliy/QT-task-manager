@@ -44,7 +44,9 @@ basket_window::basket_window(QWidget *parent) :
         background: none;
     })");
     container = new QWidget;
+    container->setStyleSheet("background-color: #0a0910;");
     layout = new QVBoxLayout(container);
+    layout->setAlignment(Qt::AlignTop);
     scrollArea->setWidget(container);
     scrollArea->setWidgetResizable(true);
     QVBoxLayout *layout = new QVBoxLayout(this);
