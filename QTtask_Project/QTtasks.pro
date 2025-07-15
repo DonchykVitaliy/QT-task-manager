@@ -79,4 +79,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     resources.qrc
 
+win32:RC_FILE = icon.rc
+
 DISTFILES +=
