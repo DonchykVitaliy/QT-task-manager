@@ -194,7 +194,7 @@ color: rgb(255, 255, 255);</string>
  }</string>
          </property>
          <property name="text">
-          <string>Вимнути нагадування</string>
+          <string>Вимкнути нагадування</string>
          </property>
         </widget>
        </item>

@@ -54,9 +54,9 @@ folder_widget::folder_widget(const QString &title, const QString &date, const QS
     editButton->setIconSize(QSize(24, 24));  // розмір іконки
     editButton->setMinimumHeight(30);
     editButton->setMinimumWidth(30);
-    completeButton = new QPushButton("Виконано", this);
+    completeButton = new QPushButton(tr("Виконано"), this);
     completeButton->setMinimumHeight(30);
-    deleteButton = new QPushButton("Видалити", this);
+    deleteButton = new QPushButton(tr("Видалити"), this);
     deleteButton->setMinimumHeight(30);
     editButton->setStyleSheet(
         "QPushButton {"
@@ -118,7 +118,7 @@ folder_widget::folder_widget(const QString &title, const QString &date, const QS
     // якщо ввімкнене нагадування
     if (important) {
         dateLabel->setStyleSheet("color: rgb(112, 91, 218); font-weight: bold;");
-        notificationButton = new QPushButton("Вимкнути нагадування", this);
+        notificationButton = new QPushButton(tr("Вимкнути нагадування"), this);
         notificationButton->setMinimumHeight(30);
         notificationButton->setStyleSheet(
             "QPushButton {"
@@ -161,5 +161,16 @@ folder_widget::folder_widget(const QString &title, const QString &date, const QS
     connect(editButton, &QPushButton::clicked, this, &folder_widget::taskEdit);
 
     setFixedHeight(170);
+}
+
+void folder_widget::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        deleteButton->setText(tr("Видалити"));
+        completeButton->setText(tr("Виконано"));
+        notificationButton->setText(tr("Вимкнути нагадування"));
+    }
+    //виклик основного класу
+    QWidget::changeEvent(event);
 }
 

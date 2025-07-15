@@ -1,7 +1,8 @@
 #include "task_widget.h"
 
 task_widget::task_widget(const QString &title, const QString &date, const QString &noteText, bool important, QWidget *parent)
-    : QWidget{parent}
+    : QWidget{parent},
+    notf(important)
 {
 
     // Заголовок і дата
@@ -72,8 +73,8 @@ task_widget::task_widget(const QString &title, const QString &date, const QStrin
         "   background-color: rgb(112, 93, 208);"
         "}"
         );
-    completeButton = new QPushButton("Виконано", this);
-    deleteButton = new QPushButton("Видалити", this);
+    completeButton = new QPushButton(tr("Виконано"), this);
+    deleteButton = new QPushButton(tr("Видалити"), this);
     completeButton->setMinimumHeight(30);
     deleteButton->setMinimumHeight(30);
     completeButton->setStyleSheet(
@@ -122,7 +123,7 @@ task_widget::task_widget(const QString &title, const QString &date, const QStrin
     // якщо ввімкнене нагадування
     if (important) {
         dateLabel->setStyleSheet("color: rgb(112, 91, 218); font-weight: bold;");
-        notificationButton = new QPushButton("Вимкнути нагадування", this);
+        notificationButton = new QPushButton(tr("Вимкнути нагадування"), this);
         notificationButton->setMinimumHeight(30);
         notificationButton->setStyleSheet(
             "QPushButton {"
@@ -165,5 +166,18 @@ task_widget::task_widget(const QString &title, const QString &date, const QStrin
     connect(editButton, &QPushButton::clicked, this, &task_widget::taskEdit);
 
     setFixedHeight(170);
+}
+
+void task_widget::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        deleteButton->setText(tr("Видалити"));
+        completeButton->setText(tr("Виконано"));
+        if (notf){
+            notificationButton->setText(tr("Вимкнути нагадування"));
+        }
+    }
+    //виклик основного класу
+    QWidget::changeEvent(event);
 }
 

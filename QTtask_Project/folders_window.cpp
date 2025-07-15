@@ -88,7 +88,7 @@ void folders_window::displayFolders()
     // перевірка на пустоту
     if (jsonFiles.isEmpty())
     {
-        QLabel *emptyLbl = new QLabel("Поки папок немає", this);
+        QLabel *emptyLbl = new QLabel(tr("Поки папок немає"), this);
         emptyLbl->setStyleSheet("color: white; padding: 2px; font-size: 12pt");
         emptyLbl->setAlignment(Qt::AlignCenter);
         layout->addWidget(emptyLbl);

@@ -7,6 +7,7 @@
 #include <QDir>
 #include <QFile>
 #include <QJsonObject>
+#include <QTranslator>
 #include <QStringList>
 #include <QJsonDocument>
 #include <QDate>
@@ -17,6 +18,13 @@ calendar_window::calendar_window(QWidget *parent) :
     ui(new Ui::calendar_window)
 {
     ui->setupUi(this);
+
+    //locale calendar
+    bool eng = checkLang();
+    if (eng)
+        ui->calendarWidget->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+
+
 
     // шлях до нотаток
     QString directoryPath = "Notes/";
@@ -76,6 +84,30 @@ void calendar_window::day_marker()
 
             }
         }
+    }
+}
+
+bool calendar_window::checkLang()
+{
+    QFile fileSettings("Settings/Settings.json");
+
+    if (fileSettings.open(QIODevice::ReadOnly))
+    {
+        QByteArray fileData = fileSettings.readAll();
+        fileSettings.close();
+
+        QJsonDocument doc = QJsonDocument::fromJson(fileData);
+        // читання налаштувань
+        QString settLang;
+        if (!doc.isNull() && doc.isObject()) {
+            QJsonObject settObject = doc.object();
+            settLang = settObject["Lang"].toString();
+        }
+
+        if (settLang == "en_US")
+            return true;
+        else
+            return false;
     }
 }
 

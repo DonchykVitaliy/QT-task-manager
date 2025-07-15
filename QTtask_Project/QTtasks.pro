@@ -23,6 +23,7 @@ SOURCES += \
     generate_name.cpp \
     main.cpp \
     mainwindow.cpp \
+    notifications.cpp \
     open_folder_window.cpp \
     open_note.cpp \
     settings_window.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     folders_window.h \
     generate_name.h \
     mainwindow.h \
+    notifications.h \
     open_folder_window.h \
     open_note.h \
     settings_window.h \
@@ -66,7 +68,8 @@ FORMS += \
     stat_window.ui
 
 TRANSLATIONS += \
-    QTtasks_uk_UA.ts
+    QTtasks_uk_UA.ts \
+    QTtasks_en_US.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -75,3 +78,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES +=

@@ -193,11 +193,11 @@ void open_folder_window::loadNotes()
 void open_folder_window::on_renameBtn_clicked()
 {
     QDialog dialog(this);
-    dialog.setWindowTitle("Зміна назви папки");
-    QLabel *label = new QLabel("Вкажіть нову назву для цієї папки:");
+    dialog.setWindowTitle(tr("Зміна назви папки"));
+    QLabel *label = new QLabel(tr("Вкажіть нову назву для цієї папки:"));
     QLineEdit *line = new QLineEdit;
-    QPushButton *okBtn = new QPushButton("Перейменувати");
-    QPushButton *cancelBtn = new QPushButton("Скасувати");
+    QPushButton *okBtn = new QPushButton(tr("Перейменувати"));
+    QPushButton *cancelBtn = new QPushButton(tr("Скасувати"));
     line->setStyleSheet(R"(
 QLineEdit
 {
@@ -270,9 +270,9 @@ QLineEdit
         else
             {
             QDialog dialogW(this);
-            dialogW.setWindowTitle("Помилка");
-            QLabel *label = new QLabel("Ви не ввели нову назву папки!");
-            QPushButton *okBtn = new QPushButton("Окей");
+            dialogW.setWindowTitle(tr("Помилка"));
+            QLabel *label = new QLabel(tr("Ви не ввели нову назву папки!"));
+            QPushButton *okBtn = new QPushButton(tr("Окей"));
             label->setStyleSheet("color:white;");
             okBtn->setStyleSheet(
                 "QPushButton {"
@@ -327,10 +327,10 @@ QLineEdit
 void open_folder_window::on_deleteBtn_clicked()
 {
 QDialog dialog(this);
-    dialog.setWindowTitle("Підтвердження");
-    QLabel *label = new QLabel("Ви впевнені,що хочете видалити папку?\nВсі нотатки залишуться не тронутими?");
-    QPushButton *okBtn = new QPushButton("Так");
-    QPushButton *cancelBtn = new QPushButton("Ні");
+    dialog.setWindowTitle(tr("Підтвердження"));
+QLabel *label = new QLabel(tr("Ви впевнені,що хочете видалити папку?\nВсі нотатки залишуться не тронутими."));
+    QPushButton *okBtn = new QPushButton(tr("Так"));
+    QPushButton *cancelBtn = new QPushButton(tr("Ні"));
     label->setStyleSheet("color:white;");
     okBtn->setStyleSheet(
         "QPushButton {"

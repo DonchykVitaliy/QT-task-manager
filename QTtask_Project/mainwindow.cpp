@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->searchText->setPlaceholderText("Пошук нотатки...");
+    ui->searchText->setPlaceholderText(tr("Пошук нотатки..."));
     ui->clearBut->hide();
 
     // Ініціалізуємо QScrollArea для відображення плиток

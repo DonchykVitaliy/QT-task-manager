@@ -98,7 +98,8 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="styleSheet">
-        <string notr="true">color: rgb(255, 255, 255);</string>
+        <string notr="true">color: rgb(255, 255, 255);
+padding: 2px;</string>
        </property>
        <property name="text">
         <string>Змінити дату:</string>

@@ -49,8 +49,8 @@ basket_widget::basket_widget(const QString &title, const QString &date, const QS
 )");
 
     // Кнопки
-    deleteButton = new QPushButton("Видалити", this);
-    resumeButton = new QPushButton("Відновити", this);
+    deleteButton = new QPushButton(tr("Видалити"), this);
+    resumeButton = new QPushButton(tr("Відновити"), this);
     deleteButton->setMinimumHeight(30);
     resumeButton->setMinimumHeight(30);
     resumeButton->setStyleSheet(
@@ -112,4 +112,5 @@ basket_widget::basket_widget(const QString &title, const QString &date, const QS
 
     setFixedHeight(170);
 }
+
 

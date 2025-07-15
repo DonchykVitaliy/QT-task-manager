@@ -16,7 +16,7 @@ create_folder_widnow::create_folder_widnow(QWidget *parent) :
     ui->setupUi(this);
 
     // початкові налаштування вікна
-    ui->nameFile->setPlaceholderText("Назва папки");
+    ui->nameFile->setPlaceholderText(tr("Назва папки"));
 
     //список всіх нотаток
     QDir dir("Notes/");
@@ -116,9 +116,9 @@ void create_folder_widnow::on_createBtn_clicked()
     if (folderName=="")
     {
         QDialog dialog(this);
-        dialog.setWindowTitle("Помилка");
-        QLabel *label = new QLabel("Ви не ввели назву папки!");
-        QPushButton *okBtn = new QPushButton("Окей");
+        dialog.setWindowTitle(tr("Помилка"));
+        QLabel *label = new QLabel(tr("Ви не ввели назву папки!"));
+        QPushButton *okBtn = new QPushButton(tr("Окей"));
         label->setStyleSheet("color:white;");
         okBtn->setStyleSheet(
             "QPushButton {"

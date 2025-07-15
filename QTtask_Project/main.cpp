@@ -1,19 +1,21 @@
 #include "mainwindow.h"
+#include "notifications.h"
 
 #include <QFontDatabase>
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
 #include <QDir>
+#include <QTranslator>
 #include <QMessageBox>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QFile>
+#include <QTimer>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
 
     // Завантаження шрифту
     int id = QFontDatabase::addApplicationFont(":/fonts/SFProText-Regular.ttf");
@@ -33,8 +35,6 @@ int main(int argc, char *argv[])
             break;
         }
     }
-    MainWindow w;
-    w.show();
 
 
     // створення потрібних папок проєкта
@@ -67,6 +67,8 @@ int main(int argc, char *argv[])
         settingObject["Notification"] = 1;
         settingObject["Clear_notification_list"] = 0;
         settingObject["Clear_basket_list"] = 0;
+        settingObject["Timer"] = 5;
+        settingObject["Lang"] = "uk_UA";
 
         // запис JSON у файл
         if (fileSettings.open(QIODevice::WriteOnly)) {
@@ -97,6 +99,8 @@ int main(int argc, char *argv[])
 
 
     // відповідність налаштуванням програми
+    QString settNotification = "1";
+    int settNotfTimer = 5;
     if (fileSettings.open(QIODevice::ReadOnly))
     {
         QByteArray fileData = fileSettings.readAll();
@@ -104,14 +108,16 @@ int main(int argc, char *argv[])
 
         QJsonDocument doc = QJsonDocument::fromJson(fileData);
         // читання налаштувань
-        QString settNotification;
         QString settNotificationList;
         QString settBasketList;
+        QString settLang;
         if (!doc.isNull() && doc.isObject()) {
             QJsonObject settObject = doc.object();
             settNotification = QString::number(settObject["Notification"].toInt());
             settNotificationList = QString::number(settObject["Clear_notification_list"].toInt());
             settBasketList = QString::number(settObject["Clear_basket_list"].toInt());
+            settNotfTimer = settObject["Timer"].toInt();
+            settLang = settObject["Lang"].toString();
         }
 
         // очистка кошику
@@ -137,7 +143,37 @@ int main(int argc, char *argv[])
                 QFile::remove(filePath);
             }
         }
+
+        //base timer
+        if (settNotfTimer < 5)
+        {
+            settNotfTimer = 5;
+        }
+
+        //lang
+        QTranslator *appTranslator = new QTranslator(&a);
+        if (appTranslator->load(QString(":/translate/QTtasks_%1.qm").arg(settLang))) {
+            a.installTranslator(appTranslator);
+        }
     }
+
+
+    //таймер для нагадування
+    if (settNotification=="1")
+    {
+        notifications();
+        QTimer *timer = new QTimer();
+        QObject::connect(timer, &QTimer::timeout, []()
+                         {
+                             notifications();
+                         });
+        timer->start(settNotfTimer*60000);
+    }
+
+
+    //ЗАПУСК ПРОГРАМИ
+    MainWindow w;
+    w.show();
 
     return a.exec();
 }

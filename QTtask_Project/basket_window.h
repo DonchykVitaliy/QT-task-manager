@@ -1,10 +1,12 @@
 #ifndef BASKET_WINDOW_H
 #define BASKET_WINDOW_H
 
+#include <QEvent>
 #include <QDialog>
 #include <QMainWindow>
 #include <QScrollArea>
 #include <QVBoxLayout>
+#include <QLabel>
 #include <QFileSystemWatcher>
 #include "basket_widget.h"
 
@@ -25,7 +27,11 @@ private slots:
 
     void on_pushButton_clicked();
 
+protected:
+    void changeEvent(QEvent *event) override;
+
 private:
+    QLabel *emptyLbl;
     QScrollArea *scrollArea;
     QWidget *container;
     QVBoxLayout *layout;

@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 #include <QButtonGroup>
+#include <QEvent>
 
 class folders_widget : public QWidget
 {
@@ -16,7 +17,11 @@ public:
 signals:
     void openFolder();
 
+protected:
+    void changeEvent(QEvent *event) override;
+
 private:
+    QString *Count;
     QLabel *titleLabel;
     QLabel *countLabel;
     QPushButton *openButton;

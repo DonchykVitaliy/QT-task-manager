@@ -20,4 +20,10 @@
         <file>icons/down_arrow.png</file>
         <file>icons/up_arrow.png</file>
     </qresource>
+    <qresource prefix="/lang"/>
+    <qresource prefix="/translate">
+        <file>QTtasks_uk_UA.qm</file>
+        <file>QTtasks_en_US.qm</file>
+        <file>qtbase_en.qm</file>
+    </qresource>
 </RCC>

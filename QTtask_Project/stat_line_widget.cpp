@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QRectF>
 #include <QPainterPath>
+#include <QDebug>
 
 stat_line_widget::stat_line_widget(QWidget *parent)
     : QWidget{parent}
@@ -66,6 +67,8 @@ void stat_line_widget::paintEvent(QPaintEvent *event)
     painter.drawRect(QRectF(x + wY, y, wG, h));
 
     int redX = x + wY + wG;
+    if (wR > 1)
+    {
     QPainterPath redPath;
     redPath.moveTo(redX, y);
     redPath.lineTo(redX + wR - r, y);
@@ -76,5 +79,7 @@ void stat_line_widget::paintEvent(QPaintEvent *event)
     redPath.closeSubpath();
     painter.setBrush(Qt::red);
     painter.drawPath(redPath);
+    }
+
 }
 

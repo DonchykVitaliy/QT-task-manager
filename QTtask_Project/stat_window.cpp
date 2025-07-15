@@ -98,7 +98,7 @@ void stat_window::updateStatList()
     {
         ui->pushButton->setEnabled(false);
 
-        QLabel *emptyLbl = new QLabel("Історія нотаток пуста", this);
+        QLabel *emptyLbl = new QLabel(tr("Історія нотаток пуста"), this);
         emptyLbl->setStyleSheet("color: white; padding: 2px; font-size: 12pt");
         emptyLbl->setAlignment(Qt::AlignCenter);
         layout->addWidget(emptyLbl);
@@ -123,9 +123,6 @@ void stat_window::updateStatList()
                     bool noteNotf = noteObject["Notf"].toBool();
 
                     stat_widget *statWidget = new stat_widget(noteTitle, noteDate, noteText, noteNotf, this);
-                    if (noteNotf) {
-                        statWidget->setStyleSheet("QWidget { border: 2px solid red; }");
-                    }
                     layout->addWidget(statWidget);
 
                     // видалити нотатку
@@ -221,10 +218,10 @@ void stat_window::updateBasketLbl()
 void stat_window::on_pushButton_clicked()
 {
     QDialog dialog(this);
-    dialog.setWindowTitle("Підтвердження");
-    QLabel *label = new QLabel("Ви впевнені,що хочете очистити список?");
-    QPushButton *okBtn = new QPushButton("Так");
-    QPushButton *cancelBtn = new QPushButton("Ні");
+    dialog.setWindowTitle(tr("Підтвердження"));
+    QLabel *label = new QLabel(tr("Ви впевнені,що хочете очистити список?"));
+    QPushButton *okBtn = new QPushButton(tr("Так"));
+    QPushButton *cancelBtn = new QPushButton(tr("Ні"));
     label->setStyleSheet("color:white;");
     okBtn->setStyleSheet(
         "QPushButton {"
@@ -304,10 +301,10 @@ void stat_window::on_pushButton_clicked()
 void stat_window::on_doneBtn_clicked()
 {
 QDialog dialog(this);
-    dialog.setWindowTitle("Підтвердження");
-    QLabel *label = new QLabel("Ви впевнені,що хочете очистити історію виконаних нотаток?");
-    QPushButton *okBtn = new QPushButton("Так");
-    QPushButton *cancelBtn = new QPushButton("Ні");
+    dialog.setWindowTitle(tr("Підтвердження"));
+QLabel *label = new QLabel(tr("Ви впевнені,що хочете очистити історію виконаних нотаток?"));
+    QPushButton *okBtn = new QPushButton(tr("Так"));
+    QPushButton *cancelBtn = new QPushButton(tr("Ні"));
     label->setStyleSheet("color:white;");
     okBtn->setStyleSheet(
         "QPushButton {"
@@ -393,10 +390,10 @@ QDialog dialog(this);
 void stat_window::on_basketBtn_clicked()
 {
 QDialog dialog(this);
-    dialog.setWindowTitle("Підтвердження");
-    QLabel *label = new QLabel("Ви впевнені,що хочете очистити кошик?");
-    QPushButton *okBtn = new QPushButton("Так");
-    QPushButton *cancelBtn = new QPushButton("Ні");
+    dialog.setWindowTitle(tr("Підтвердження"));
+    QLabel *label = new QLabel(tr("Ви впевнені,що хочете очистити кошик?"));
+    QPushButton *okBtn = new QPushButton(tr("Так"));
+    QPushButton *cancelBtn = new QPushButton(tr("Ні"));
     label->setStyleSheet("color:white;");
     okBtn->setStyleSheet(
         "QPushButton {"

@@ -12,7 +12,7 @@ edit_task_window::edit_task_window(const QString &nameFile, QWidget *parent) :
     nameFile(nameFile)              //збереження у полі класу для всіх методів
 {
     ui->setupUi(this);
-    ui->textFile->setPlaceholderText("Завдання...");
+    ui->textFile->setPlaceholderText(tr("Завдання..."));
 
     QString filePath = "Notes/" + nameFile;
     QFile file(filePath);

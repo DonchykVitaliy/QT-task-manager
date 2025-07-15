@@ -8,6 +8,7 @@
 #include <QRadioButton>
 #include <QButtonGroup>
 #include <QTextEdit>
+#include <QEvent>
 
 class task_widget : public QWidget
 {
@@ -21,6 +22,9 @@ signals:
     void taskEdit();
     void taskNotf();
 
+protected:
+    void changeEvent(QEvent *event) override;
+
 private:
     QLabel *titleLabel;
     QLabel *dateLabel;
@@ -30,6 +34,7 @@ private:
     QPushButton *completeButton;
     QPushButton *deleteButton;
     QPushButton *notificationButton;
+    bool notf;
 };
 
 #endif // TASK_WIDGET_H

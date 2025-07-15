@@ -1,6 +1,7 @@
 #ifndef FOLDER_WIDGET_H
 #define FOLDER_WIDGET_H
 
+#include <QEvent>
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
@@ -20,6 +21,9 @@ signals:
     void taskDeleted();
     void taskEdit();
     void taskNotf();
+
+protected:
+    void changeEvent(QEvent *event) override;
 
 private:
     QLabel *titleLabel;

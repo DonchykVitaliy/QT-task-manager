@@ -20,6 +20,7 @@ public:
 private slots:
     void on_pushButton_clicked();
     void day_marker();
+    bool checkLang();
 
     void on_calendarWidget_clicked(const QDate &date);
 

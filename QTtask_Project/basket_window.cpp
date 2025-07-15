@@ -11,6 +11,7 @@
 #include <QScrollArea>
 #include <QVBoxLayout>
 #include <QTextEdit>
+#include <QTranslator>
 #include <QMessageBox>
 
 basket_window::basket_window(QWidget *parent) :
@@ -86,7 +87,7 @@ void basket_window::updateBasketList()
     {
         ui->pushButton->setEnabled(false);
 
-        QLabel *emptyLbl = new QLabel("Кошик пустий", this);
+        emptyLbl = new QLabel(tr("Кошик пустий"), this);
         emptyLbl->setStyleSheet("color: white; padding: 2px; font-size: 12pt");
         emptyLbl->setAlignment(Qt::AlignCenter);
         layout->addWidget(emptyLbl);
@@ -111,9 +112,6 @@ void basket_window::updateBasketList()
                     bool noteNotf = noteObject["Notf"].toBool();
 
                     basket_widget *basketWidget = new basket_widget(noteTitle, noteDate, noteText, noteNotf, this);
-                    if (noteNotf) {
-                        basketWidget->setStyleSheet("QWidget { border: 2px solid red; }");
-                    }
                     layout->addWidget(basketWidget);
 
                     // видалити нотатку
@@ -147,10 +145,10 @@ void basket_window::updateBasketList()
 void basket_window::on_pushButton_clicked()
 {
     QDialog dialog(this);
-    dialog.setWindowTitle("Підтвердження");
-    QLabel *label = new QLabel("Ви впевнені,що хочете очистити кошик?");
-    QPushButton *okBtn = new QPushButton("Так");
-    QPushButton *cancelBtn = new QPushButton("Ні");
+    dialog.setWindowTitle(tr("Підтвердження"));
+    QLabel *label = new QLabel(tr("Ви впевнені,що хочете очистити кошик?"));
+    QPushButton *okBtn = new QPushButton(tr("Так"));
+    QPushButton *cancelBtn = new QPushButton(tr("Ні"));
     label->setStyleSheet("color:white;");
     okBtn->setStyleSheet(
         "QPushButton {"
@@ -221,5 +219,14 @@ void basket_window::on_pushButton_clicked()
         }
     }
 
+}
+
+void basket_window::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::LanguageChange) {
+        emptyLbl->setText(tr("Кошик пустий"));
+    }
+    //виклик основного класу
+    QWidget::changeEvent(event);
 }
 

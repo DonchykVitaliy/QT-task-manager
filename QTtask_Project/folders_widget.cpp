@@ -8,12 +8,12 @@ folders_widget::folders_widget(const QString &title, const QString &count, QWidg
     QString noteName = title;
     noteName.chop(5);           //приберає з назви ".json"
     titleLabel = new QLabel(noteName, this);
-    countLabel = new QLabel("Кількість нотаток: " + count, this);
+    countLabel = new QLabel(tr("Кількість нотаток: ") + count, this);
     titleLabel->setStyleSheet("color: white; padding: 2px; font-size: 10pt;");
     countLabel->setStyleSheet("color: white; padding: 2px; font-size: 10pt;");
 
     //buttons
-    openButton = new QPushButton("Відкрити", this);
+    openButton = new QPushButton(tr("Відкрити"), this);
     openButton->setMinimumHeight(30);
     openButton->setStyleSheet(
         "QPushButton {"
@@ -55,4 +55,16 @@ folders_widget::folders_widget(const QString &title, const QString &count, QWidg
     connect(openButton, &QPushButton::clicked, this, &folders_widget::openFolder);
 
     setFixedHeight(60);
+}
+
+void folders_widget::changeEvent(QEvent *event)
+{
+    QString Count = "1";
+    if (event->type() == QEvent::LanguageChange) {
+        openButton->setText(tr("Відкрити")); // Оновлюємо текст кнопки
+        countLabel->setText(tr("Кількість нотаток: ") + Count); // Оновлюємо текст мітки
+        qDebug() << "folders_widget UI retranslated."; // Для налагодження
+    }
+
+    QWidget::changeEvent(event);
 }

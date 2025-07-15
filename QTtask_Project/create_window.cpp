@@ -17,8 +17,8 @@ create_window::create_window(QWidget *parent) :
 {
     ui->setupUi(this);
     // початкові налаштування вікна
-    ui->nameFile->setPlaceholderText("Назва нотатки");
-    ui->textFile->setPlaceholderText("Завдання...");
+    ui->nameFile->setPlaceholderText(tr("Назва нотатки"));
+    ui->textFile->setPlaceholderText(tr("Завдання..."));
 
     QDate trueDate = QDate::currentDate();
     ui->dataFile->setDate(trueDate);
@@ -47,9 +47,9 @@ void create_window::on_createBtn_clicked()
     if (noteName=="")
     {
         QDialog dialogW(this);
-        dialogW.setWindowTitle("Помилка");
-        QLabel *label = new QLabel("Ви не ввели назву нотатки!");
-        QPushButton *okBtn = new QPushButton("Окей");
+        dialogW.setWindowTitle(tr("Помилка"));
+        QLabel *label = new QLabel(tr("Ви не ввели назву нотатки!"));
+        QPushButton *okBtn = new QPushButton(tr("Окей"));
         label->setStyleSheet("color:white;");
         okBtn->setStyleSheet(
             "QPushButton {"
@@ -121,10 +121,10 @@ void create_window::closeEvent(QCloseEvent *event)
     if (!allow)
     {
         QDialog dialog(this);
-        dialog.setWindowTitle("Вихід");
-        QLabel *label = new QLabel("Ви впевнені, що хочете закрити вікно створення нотатки?");
-        QPushButton *okBtn = new QPushButton("Закрити");
-        QPushButton *cancelBtn = new QPushButton("Скасувати");
+        dialog.setWindowTitle(tr("Вихід"));
+        QLabel *label = new QLabel(tr("Ви впевнені, що хочете закрити вікно створення нотатки?"));
+        QPushButton *okBtn = new QPushButton(tr("Закрити"));
+        QPushButton *cancelBtn = new QPushButton(tr("Скасувати"));
         label->setStyleSheet("color:white;");
         okBtn->setStyleSheet(
             "QPushButton {"
