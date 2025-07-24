@@ -18,12 +18,15 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     // Завантаження шрифту
-    int id = QFontDatabase::addApplicationFont(":/fonts/SFProText-Regular.ttf");
+    int id = QFontDatabase::addApplicationFont(":/fonts/fonts/SFProText-Bold.ttf");
     if (id != -1) {
-        QString family = QFontDatabase::applicationFontFamilies(id).at(0);
-        QFont font(family);
-        font.setPointSize(14);  // або інший розмір
-        a.setFont(font);
+        QStringList families = QFontDatabase::applicationFontFamilies(id);
+        if (!families.isEmpty()) {
+            QString family = families.at(0);
+            QFont font(family);
+            font.setPointSize(14);
+            a.setFont(font);
+        }
     }
 
     QTranslator translator;
